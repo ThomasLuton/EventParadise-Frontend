@@ -29,76 +29,77 @@
     <main>
         <div class="container-fluid">
             <h1>Créer un événement</h1>
-            <form class="needs-validation" novalidate>
+            <form class="needs-validation">
                 <div class="row">
-                    <div class="mb-3 col-12 col-md-4">
-                        <label for="nom" class="form-label">Nom</label>
-                        <input type="text" class="form-control" id="nom" required pattern="[\w,\W]{1,255}">
-                        <div class="invalid-feedback" id="nom-feedback">
-                            Ce champ est obligatoire
+                    <div class="mb-4 col-12 col-md-4 position-relative">
+                        <label for="name" class="form-label">Nom</label>
+                        <input type="text" class="form-control" id="name" required pattern="[\w,\W]{1,255}">
+                        <div class="invalid-tooltip" id="name-feedback">
+
                         </div>
-                        <div id="nomHelp" class="form-text">Nom de l'événement.</div>
+                        <div id="nameHelp" class="form-text">Nom de l'événement.</div>
 
                     </div>
-                    <div class="mb-3 col-12 col-md-4">
+                    <div class="mb-4 col-12 col-md-4 position-relative">
                         <label for="date" class="form-label">Date</label>
                         <input type="date" class="form-control" id="date" required>
-                        <div class="invalid-feedback" id="date-feedback">
-                            Ce champ est obligatoire
+                        <div class="invalid-tooltip" id="date-feedback">
+
                         </div>
                         <div id="dateHelp" class="form-text">Date de l'événement.</div>
                     </div>
-                    <div class="mb-3 col-12 col-md-4">
-                        <label for="lieu" class="form-label">Lieu</label>
-                        <select class="form-select" id="lieu" required>
-                            <option selected disabled value="">Choisir un lieu dans la liste</option>
+                    <div class="mb-4 col-12 col-md-4 position-relative">
+                        <label for="location" class="form-label">Lieu</label>
+                        <select class="form-select" id="location" type="select" required>
+                            <option selected value="">Choisir un location dans la liste</option>
                             <option value="1">Paris</option>
                             <option value="2">Rennes</option>
                             <option value="3">Marseille</option>
                         </select>
-                        <div class="invalid-feedback" id="feedback">
-                            Ce champ est obligatoire
+                        <div class="invalid-tooltip" id="location-feedback">
+
                         </div>
-                        <div id="lieuHelp" class="form-text">Lieu de l'événement</div>
+                        <div id="locationHelp" class="form-text">Lieu de l'événement</div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="mb-3 col-12 col-md-8">
+                    <div class="mb-4 col-12 col-md-8 position-relative">
                         <label for="theme" class="form-label">Thème</label>
-                        <select class="form-select" id="lieu" required>
-                            <option selected disabled value="">Choisir un thème dans la liste</option>
+                        <select class="form-select" id="theme" type="select" required>
+                            <option selected value="">Choisir un thème dans la liste</option>
                             <option value="1">Ecologie</option>
                             <option value="2">Ressources humaines</option>
                             <option value="3">Tech</option>
                         </select>
-                        <div class="invalid-feedback" id="feedback">
-                            Ce champ est obligatoire
+                        <div class="invalid-tooltip" id="theme-feedback">
+
                         </div>
                         <div id="themeHelp" class="form-text">Thème de l'événement</div>
                     </div>
-                    <div class="mb-3 col-12 col-md-4">
-                        <label for="tarif" class="form-label">Tarif</label>
-                        <div class="input-group">
+                    <div class="mb-4 col-12 col-md-4">
+                        <label for="rate" class="form-label">Tarif</label>
+                        <div class="input-group position-relative">
                             <span class="input-group-text">€</span>
-                            <input type="text" class="form-control" id="tarif" required pattern="^0*?[1-9]\d*$">
-                            <div class=" invalid-feedback" id="tarif-feedback">
-                                Ce champ est obligatoire
+                            <input type="text" class="form-control" id="rate" required pattern="^0*?[1-9]\d*$">
+                            <div class=" invalid-tooltip" id="rate-feedback">
+
                             </div>
                         </div>
 
-                        <div id="tarifHelp" class="form-text">Tarif journalier de l'événement</div>
+                        <div id="rateHelp" class="form-text">Tarif journalier de l'événement</div>
                     </div>
                 </div>
-                <div class="mb-3 col-12">
+                <div class="mb-4 col-12 position-relative">
                     <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" rows="3" required
+                    <textarea type="text" class="form-control" id="description" rows="3" required
                         pattern="[\w,\W]{1,1000}"></textarea>
-                    <div class="invalid-feedback" id="description-feedback">
-                        Ce champ est obligatoire
-                    </div>
                     <div id="descriptionHelp" class="form-text">Description de l'événement</div>
+                    <div class="invalid-tooltip" id="description-feedback">
+
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary col-12 col-md-1 float-end">Sauvegarder</button>
+                <button type="submit" id="save"
+                    class="btn btn-primary mb-4 col-12 col-md-1 float-end">Sauvegarder</button>
             </form>
         </div>
         <div class="toast-container position-fixed bottom-0 end-0 p-3">

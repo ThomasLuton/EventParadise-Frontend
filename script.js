@@ -1,6 +1,9 @@
 const toastSucces = document.getElementById('liveToast');
 const toast = new bootstrap.Toast(toastSucces);
 
+
+
+
 const forms = document.querySelectorAll('.needs-validation')
 document.getElementById("save").addEventListener('click', event => {
     forms[0].classList.add("was-validated");

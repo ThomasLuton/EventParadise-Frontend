@@ -29,81 +29,62 @@
     <main>
         <div class="container-fluid">
             <h1>Créer un événement</h1>
-            <form class="needs-validation">
+            <form>
                 <div class="row">
                     <div class="mb-4 col-12 col-md-4 position-relative">
                         <label for="name" class="form-label">Nom</label>
-                        <input type="text" class="form-control" id="name" required pattern="[\w,\W]{1,255}">
-                        <div class="invalid-tooltip" id="name-feedback">
-
-                        </div>
+                        <input name="name" type="text" class="form-control" id="name" maxlength="255" required>
                         <div id="nameHelp" class="form-text">Nom de l'événement.</div>
 
                     </div>
                     <div class="mb-4 col-12 col-md-4 position-relative">
                         <label for="date" class="form-label">Date</label>
-                        <input type="date" class="form-control" id="date" required>
-                        <div class="invalid-tooltip" id="date-feedback">
-
-                        </div>
+                        <input name="date" type="date" class="form-control" id="date" required>
                         <div id="dateHelp" class="form-text">Date de l'événement.</div>
                     </div>
                     <div class="mb-4 col-12 col-md-4 position-relative">
                         <label for="location" class="form-label">Lieu</label>
-                        <select class="form-select" id="location" type="select" required>
+                        <select name="location" class="form-select" id="location" type="select" required>
                             <option selected value="">Choisir un location dans la liste</option>
                             <option value="1">Paris</option>
                             <option value="2">Rennes</option>
                             <option value="3">Marseille</option>
                         </select>
-                        <div class="invalid-tooltip" id="location-feedback">
-
-                        </div>
                         <div id="locationHelp" class="form-text">Lieu de l'événement</div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="mb-4 col-12 col-md-8 position-relative">
                         <label for="theme" class="form-label">Thème</label>
-                        <select class="form-select" id="theme" type="select" required>
+                        <select name="theme" class="form-select" id="theme" type="select" required>
                             <option selected value="">Choisir un thème dans la liste</option>
                             <option value="1">Ecologie</option>
                             <option value="2">Ressources humaines</option>
                             <option value="3">Tech</option>
                         </select>
-                        <div class="invalid-tooltip" id="theme-feedback">
-
-                        </div>
                         <div id="themeHelp" class="form-text">Thème de l'événement</div>
                     </div>
                     <div class="mb-4 col-12 col-md-4">
                         <label for="rate" class="form-label">Tarif</label>
                         <div class="input-group position-relative">
                             <span class="input-group-text">€</span>
-                            <input type="text" class="form-control" id="rate" required pattern="^0*?[1-9]\d*$">
-                            <div class=" invalid-tooltip" id="rate-feedback">
-
-                            </div>
+                            <input name="rate" type="number" class="form-control" id="rate" required min="1">
                         </div>
-
                         <div id="rateHelp" class="form-text">Tarif journalier de l'événement</div>
                     </div>
                 </div>
                 <div class="mb-4 col-12 position-relative">
                     <label for="description" class="form-label">Description</label>
-                    <textarea type="text" class="form-control" id="description" rows="3" required
-                        pattern="[\w,\W]{1,1000}"></textarea>
+                    <textarea name="description" type="text" class="form-control" id="description" rows="3" required
+                        maxlength="1000"></textarea>
                     <div id="descriptionHelp" class="form-text">Description de l'événement</div>
-                    <div class="invalid-tooltip" id="description-feedback">
-
-                    </div>
                 </div>
                 <button type="submit" id="save"
                     class="btn btn-primary mb-4 col-12 col-md-1 float-end">Sauvegarder</button>
             </form>
         </div>
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
-            <div id="liveToast" class="toast" role="alert">
+            <div id="liveToast" class="toast bg-success" role="alert">
                 <div class="toast-header">
                     <strong class="me-auto">EventParadise</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast"></button>

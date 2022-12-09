@@ -1,3 +1,7 @@
 .tooltip-inner {
-    background-color: red;
+    background-color: #CD3545;
+}
+
+.tooltip .tooltip-arrow {
+    --bs-tooltip-bg: #CD3545;
 }

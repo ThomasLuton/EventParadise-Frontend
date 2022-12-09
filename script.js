@@ -50,13 +50,6 @@ for (let i = 0; i < form.length - 1; i++) {
             }
         });
     });
-
-    // element.addEventListener('change', event => {
-    //     element.checkValidity()
-    //     if (element.checkValidity()) {
-    //         tooltips[i].disable();
-    //     }
-    // });
 }
 
 function changeTooltip(tooltip, event) {

@@ -24,6 +24,17 @@ for (let i = 0; i < form.length - 1; i++) {
 for (let i = 0; i < form.length - 1; i++) {
 
     const element = form[i];
+    const parentElement = element.parentElement;
+    let label = "";
+    let helpText = "";
+    if (element.getAttribute("id") == "rate") {
+        const tmp = parentElement.parentElement;
+        helpText = tmp.querySelector(".form-text");
+        label = tmp.querySelector("label");
+    } else {
+        helpText = parentElement.querySelector(".form-text");
+        label = parentElement.querySelector("label");
+    }
     element.addEventListener('invalid', event => {
         event.preventDefault();
         const first = form.querySelector(":invalid");
@@ -31,24 +42,40 @@ for (let i = 0; i < form.length - 1; i++) {
             tooltips[i].enable();
             changeTooltip(tooltips[i], event);
             element.focus();
+            element.classList.add("is-invalid");
+            label.classList.add("custom-invalid")
+            helpText.classList.add("custom-invalid")
         }
-        element.addEventListener('change', event => {
-            event.preventDefault()
-            if (element.validity.valid) {
-                element.classList.remove("is-invalid")
-                element.classList.add("is-valid");
-
-            }
-            else if (element.classList.contains('is-invalid') && element.validity.valid) {
-                element.classList.remove("is-invalid")
-                element.classList.add("is-valid");
-
-            }
-            else {
-                element.classList.remove("is-valid");
-                element.classList.add("is-invalid");
-            }
-        });
+    });
+    element.addEventListener('change', event => {
+        event.preventDefault()
+        if (element.validity.valid) {
+            element.classList.remove("is-invalid")
+            element.classList.add("is-valid");
+            label.classList.remove("custom-invalid")
+            label.classList.add("custom-valid");
+            helpText.classList.remove("custom-invalid")
+            helpText.classList.add("custom-valid");
+            tooltips[i].disable();
+        }
+        else if (element.classList.contains('is-invalid') && element.validity.valid) {
+            element.classList.remove("is-invalid")
+            element.classList.add("is-valid");
+            label.classList.remove("custom-invalid")
+            label.classList.add("custom-valid");
+            helpText.classList.remove("custom-invalid")
+            helpText.classList.add("custom-valid");
+            tooltips[i].disable();
+        }
+        else {
+            element.classList.remove("is-valid");
+            element.classList.add("is-invalid");
+            label.classList.add("custom-invalid")
+            label.classList.remove("custom-valid");
+            helpText.classList.add("custom-invalid")
+            helpText.classList.remove("custom-valid");
+            tooltips[i].enable();
+        }
     });
 }
 

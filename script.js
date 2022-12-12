@@ -17,16 +17,9 @@ form.addEventListener('submit', event => {
 });
 
 const options = {
-    title: "default",
-    trigger: "focus",
-    placement: "top"
+    title: "default"
 };
-const tooltips = [];
-for (let i = 0; i < form.length - 1; i++) {
-    const tmp = new bootstrap.Tooltip(form[i], options);
-    tmp.disable();
-    tooltips.push(tmp);
-}
+const tooltips = [6];
 
 for (let i = 0; i < form.length - 1; i++) {
 
@@ -34,22 +27,19 @@ for (let i = 0; i < form.length - 1; i++) {
     const helpText = getHelpText(element);
     element.addEventListener('invalid', event => {
         event.preventDefault();
+        const tooltip = new bootstrap.Tooltip(form[i], options);
+        tooltips[i] = tooltip;
         const first = form.querySelector(":invalid");
         if (element == first) {
             element.focus();
         }
         setInvalidity(element, helpText, tooltips[i], event);
-        toast.hide();
     });
     element.addEventListener('change', event => {
         event.preventDefault()
         if (element.validity.valid) {
             setValidity(element, helpText, tooltips[i]);
-        }
-        else if (element.classList.contains('is-invalid') && element.validity.valid) {
-            setValidity(element, helpText, tooltips[i]);
-        }
-        else {
+        } else {
             setInvalidity(element, helpText, tooltips[i], event);
         }
     });
@@ -57,11 +47,11 @@ for (let i = 0; i < form.length - 1; i++) {
 
 function changeTooltip(tooltip, event) {
     if (event.target.validity.valueMissing) {
-        tooltip._config.title = "Champ obligatoire";
+        tooltip.setContent({ '.tooltip-inner': "Champ obligatoire" })
     } else if (event.target.value < event.target.min && event.target.type === "number") {
-        tooltip._config.title = "Doit être positif";
+        tooltip.setContent({ '.tooltip-inner': "Doit être positif" })
     } else if (event.target.type === "date") {
-        tooltip._config.title = "Doit être égale ou supérieure à aujourd'hui";
+        tooltip.setContent({ '.tooltip-inner': "Doit être égale ou supérieure à aujourd'hui" });
     }
 }
 

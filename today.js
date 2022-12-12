@@ -1,2 +1,2 @@
-let today = new Date().toISOString().slice(0, 10);
+let today = new Date().toLocaleDateString("en-CA");
 document.getElementById("date").setAttribute("min", today);

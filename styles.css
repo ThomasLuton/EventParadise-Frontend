@@ -5,11 +5,3 @@
 .tooltip .tooltip-arrow {
     --bs-tooltip-bg: #CD3545;
 }
-
-.custom-valid {
-    color: green;
-}
-
-.custom-invalid {
-    color: #CD3545;
-}

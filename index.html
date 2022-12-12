@@ -67,7 +67,8 @@
                         <label for="rate" class="form-label">Tarif</label>
                         <div class="input-group position-relative">
                             <span class="input-group-text">€</span>
-                            <input name="rate" type="number" class="form-control" id="rate" required min="1">
+                            <input name="rate" type="number" class="form-control" id="rate" required step="0.01"
+                                min="0.01">
                         </div>
                         <div id="rateHelp" class="form-text">Tarif journalier de l'événement</div>
                     </div>
@@ -83,7 +84,7 @@
             </form>
         </div>
         <div class="toast-container position-fixed bottom-0 end-0 p-3">
-            <div id="liveToast" class="toast bg-success" role="alert">
+            <div id="liveToast" class="toast bg-success text-white" role="alert">
                 <div class="toast-header">
                     <strong class="me-auto">EventParadise</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast"></button>

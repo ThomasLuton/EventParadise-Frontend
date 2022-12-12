@@ -10,16 +10,7 @@ form.addEventListener('submit', event => {
     const elements = form.querySelectorAll(".text-success");
     for (let i = 0; i < elements.length; i++) {
         const element = form[i];
-        const parentElement = element.parentElement;
-        let helpText = "";
-        if (element.getAttribute("id") == "rate") {
-            const tmp = parentElement.parentElement;
-            helpText = tmp.querySelector(".form-text");
-            label = tmp.querySelector("label");
-        } else {
-            helpText = parentElement.querySelector(".form-text");
-            label = parentElement.querySelector("label");
-        }
+        const helpText = getHelpText(element);
         element.classList.remove("is-valid");
         helpText.classList.remove("text-success");
     }
@@ -40,51 +31,26 @@ for (let i = 0; i < form.length - 1; i++) {
 for (let i = 0; i < form.length - 1; i++) {
 
     const element = form[i];
-    const parentElement = element.parentElement;
-    let helpText = "";
-    if (element.getAttribute("id") == "rate") {
-        const tmp = parentElement.parentElement;
-        helpText = tmp.querySelector(".form-text");
-        label = tmp.querySelector("label");
-    } else {
-        helpText = parentElement.querySelector(".form-text");
-        label = parentElement.querySelector("label");
-    }
+    const helpText = getHelpText(element);
     element.addEventListener('invalid', event => {
         event.preventDefault();
         const first = form.querySelector(":invalid");
         if (element == first) {
             element.focus();
         }
-        tooltips[i].enable();
-        changeTooltip(tooltips[i], event);
-        element.classList.add("is-invalid");
-        helpText.classList.add("text-danger");
+        setInvalidity(element, helpText, tooltips[i], event);
         toast.hide();
     });
     element.addEventListener('change', event => {
         event.preventDefault()
         if (element.validity.valid) {
-            element.classList.remove("is-invalid")
-            element.classList.add("is-valid");
-            helpText.classList.remove("text-danger")
-            helpText.classList.add("text-success");
-            tooltips[i].disable();
+            setValidity(element, helpText, tooltips[i]);
         }
         else if (element.classList.contains('is-invalid') && element.validity.valid) {
-            element.classList.remove("is-invalid")
-            element.classList.add("is-valid");
-            helpText.classList.remove("text-danger")
-            helpText.classList.add("text-success");
-            tooltips[i].disable();
+            setValidity(element, helpText, tooltips[i]);
         }
         else {
-            changeTooltip(tooltips[i], event);
-            element.classList.remove("is-valid");
-            element.classList.add("is-invalid");
-            helpText.classList.add("text-danger")
-            helpText.classList.remove("text-success");
-            tooltips[i].enable();
+            setInvalidity(element, helpText, tooltips[i], event);
         }
     });
 }
@@ -97,4 +63,31 @@ function changeTooltip(tooltip, event) {
     } else if (event.target.type === "date") {
         tooltip._config.title = "Doit être égale ou supérieure à aujourd'hui";
     }
+}
+
+function getHelpText(element) {
+    const parentElement = element.parentElement;
+    if (element.getAttribute("id") == "rate") {
+        const tmp = parentElement.parentElement;
+        return tmp.querySelector(".form-text");
+    } else {
+        return parentElement.querySelector(".form-text");
+    }
+}
+
+function setValidity(element, helpText, tooltip) {
+    element.classList.remove("is-invalid");
+    element.classList.add("is-valid");
+    helpText.classList.remove("text-danger")
+    helpText.classList.add("text-success");
+    tooltip.disable();
+}
+
+function setInvalidity(element, helpText, tooltip, event) {
+    changeTooltip(tooltip, event);
+    element.classList.remove("is-valid");
+    element.classList.add("is-invalid");
+    helpText.classList.add("text-danger")
+    helpText.classList.remove("text-success");
+    tooltip.enable();
 }

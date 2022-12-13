@@ -31,17 +31,17 @@
             <h1>Créer un événement</h1>
             <form>
                 <div class="row">
-                    <div class="mb-4 col-12 col-md-4 position-relative">
+                    <div class="mb-4 col-12 col-md-4">
                         <label for="name" class="form-label">Nom</label>
                         <input name="name" type="text" class="form-control" id="name" maxlength="255" required>
                         <div id="nameHelp" class="form-text">Nom de l'événement.</div>
                     </div>
-                    <div class="mb-4 col-12 col-md-4 position-relative">
+                    <div class="mb-4 col-12 col-md-4">
                         <label for="date" class="form-label">Date</label>
                         <input name="date" type="date" class="form-control" id="date" required>
                         <div id="dateHelp" class="form-text">Date de l'événement.</div>
                     </div>
-                    <div class="mb-4 col-12 col-md-4 position-relative">
+                    <div class="mb-4 col-12 col-md-4">
                         <label for="location" class="form-label">Lieu</label>
                         <select name="location" class="form-select" id="location" type="select" required>
                             <option selected value="">Choisir un location dans la liste</option>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="mb-4 col-12 col-md-8 position-relative">
+                    <div class="mb-4 col-12 col-md-8">
                         <label for="theme" class="form-label">Thème</label>
                         <select name="theme" class="form-select" id="theme" type="select" required>
                             <option selected value="">Choisir un thème dans la liste</option>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="mb-4 col-12 col-md-4">
                         <label for="rate" class="form-label">Tarif</label>
-                        <div class="input-group position-relative">
+                        <div class="input-group">
                             <span class="input-group-text">€</span>
                             <input name="rate" type="number" class="form-control" id="rate" required step="0.01"
                                 min="0.01">
@@ -73,7 +73,7 @@
                         <div id="rateHelp" class="form-text">Tarif journalier de l'événement</div>
                     </div>
                 </div>
-                <div class="mb-4 col-12 position-relative">
+                <div class="mb-4 col-12">
                     <label for="description" class="form-label">Description</label>
                     <textarea name="description" type="text" class="form-control" id="description" rows="3" required
                         maxlength="1000"></textarea>

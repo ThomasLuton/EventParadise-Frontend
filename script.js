@@ -1,7 +1,10 @@
 const toastSucces = document.getElementById('liveToast');
-const toast = new bootstrap.Toast(toastSucces);
+const toast = bootstrap.Toast.getOrCreateInstance(toastSucces);
 
 const form = document.querySelector("form")
+const options = {
+    title: "default"
+};
 
 form.addEventListener('submit', event => {
     event.preventDefault();
@@ -16,33 +19,26 @@ form.addEventListener('submit', event => {
     }
 });
 
-const options = {
-    title: "default"
-};
-
-
 for (let i = 0; i < form.length - 1; i++) {
 
     const element = form[i];
     const helpText = getHelpText(element);
-    let tooltip = "";
     element.addEventListener('invalid', event => {
         event.preventDefault();
-        tooltip = new bootstrap.Tooltip(form[i], options);
+        tooltip = bootstrap.Tooltip.getOrCreateInstance(form[i], options);
         const first = form.querySelector(":invalid");
         if (element == first) {
             element.focus();
         }
-        setInvalidity(element, helpText, tooltip, event);
+        changeTooltip(tooltip, event);
+        setInvalidity(element, helpText, tooltip);
     });
     element.addEventListener('change', event => {
-        event.preventDefault()
+        event.preventDefault();
+        tooltip = bootstrap.Tooltip.getOrCreateInstance(form[i], options);
         if (!element.validity.valid) {
-            console.log("invalid")
-            if (tooltip == "") {
-                tooltip = new bootstrap.Tooltip(form[i], options);
-            }
-            setInvalidity(element, helpText, tooltip, event);
+            changeTooltip(tooltip, event);
+            setInvalidity(element, helpText, tooltip);
         } else {
             setValidity(element, helpText, tooltip);
         }
@@ -54,8 +50,7 @@ function changeTooltip(tooltip, event) {
     if (!(event.target.validity.valueMissing)) {
         if (event.target.type === "number" && event.target.validity.rangeUnderflow) {
             content = "Doit être positif";
-        }
-        if (event.target.type === "date" && event.target.validity.rangeUnderflow) {
+        } else if (event.target.type === "date" && event.target.validity.rangeUnderflow) {
             content = "Doit être égale ou supérieure à aujourd'hui";
         }
     } else {
@@ -75,14 +70,11 @@ function setValidity(element, helpText, tooltip) {
     element.classList.add("is-valid");
     helpText.classList.remove("text-danger")
     helpText.classList.add("text-success");
-    if (tooltip != "") {
-        tooltip.hide();
-        tooltip.disable();
-    }
+    tooltip.hide();
+    tooltip.disable();
 }
 
-function setInvalidity(element, helpText, tooltip, event) {
-    changeTooltip(tooltip, event);
+function setInvalidity(element, helpText, tooltip) {
     element.classList.remove("is-valid");
     element.classList.add("is-invalid");
     helpText.classList.add("text-danger")

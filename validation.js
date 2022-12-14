@@ -23,7 +23,6 @@ form.addEventListener('submit', event => {
         const element = document.getElementById(`${property}`);
         data[property] = element.value;
     });
-    //console.log(data);
     send(url, method, data);
     toast.show();
     form.reset();
@@ -105,15 +104,13 @@ async function send(url, method, data) {
     };
     if (data != null) {
         options.body = JSON.stringify(data);
-        console.log(options.body);
         options.headers = {
             'Content-Type': 'application/json'
         }
     }
     const response = await fetch(url, options);
-    const header = response.headers;
-    if (header.get("content-type") == "application/json") {
-        return await response.json();
+    if (response.status == 400) {
+        console.log(response.response)
     }
-    return null;
+
 }

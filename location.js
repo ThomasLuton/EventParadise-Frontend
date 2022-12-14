@@ -14,12 +14,12 @@ async function get() {
 async function render() {
     const locations = await get();
     let content = `
-<option selected value="">Choisir un location dans la liste</option>
+    <option selected value="">Choisir un location dans la liste</option>
 `;
     locations.forEach(location => {
         content += `<option value="${location.id}">${location.name}</option>`
     });
-    const target = document.getElementById("location");
+    const target = document.getElementById("locationId");
     target.innerHTML = content;
 
 }

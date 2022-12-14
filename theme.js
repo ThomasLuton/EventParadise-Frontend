@@ -19,7 +19,7 @@ async function render() {
     themes.forEach(theme => {
         content += `<option value="${theme.id}">${theme.name}</option>`
     });
-    const target = document.getElementById("theme");
+    const target = document.getElementById("themeId");
     target.innerHTML = content;
 
 }

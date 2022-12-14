@@ -8,6 +8,23 @@ const options = {
 
 form.addEventListener('submit', event => {
     event.preventDefault();
+    const url = "http://localhost:8080/event";
+    const method = "POST";
+    const data = {
+        name: "",
+        date: "",
+        locationId: "",
+        themeId: "",
+        rate: "",
+        description: ""
+    }
+    const properties = Object.keys(data);
+    properties.forEach(property => {
+        const element = document.getElementById(`${property}`);
+        data[property] = element.value;
+    });
+    //console.log(data);
+    send(url, method, data);
     toast.show();
     form.reset();
     const elements = form.querySelectorAll(".text-success");
@@ -80,4 +97,23 @@ function setInvalidity(element, helpText, tooltip) {
     helpText.classList.add("text-danger")
     helpText.classList.remove("text-success");
     tooltip.enable();
+}
+
+async function send(url, method, data) {
+    const options = {
+        method: method
+    };
+    if (data != null) {
+        options.body = JSON.stringify(data);
+        console.log(options.body);
+        options.headers = {
+            'Content-Type': 'application/json'
+        }
+    }
+    const response = await fetch(url, options);
+    const header = response.headers;
+    if (header.get("content-type") == "application/json") {
+        return await response.json();
+    }
+    return null;
 }

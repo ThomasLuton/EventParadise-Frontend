@@ -38,8 +38,8 @@ for (let i = 0; i < form.length - 1; i++) {
     element.addEventListener('invalid', event => {
         event.preventDefault();
         tooltip = bootstrap.Tooltip.getOrCreateInstance(element, options);
-        const first = form.querySelector(":invalid");
-        if (element == first) {
+        const firstError = form.querySelector(":invalid");
+        if (element == firstError) {
             element.focus();
         }
         changeTooltip(tooltip, event);

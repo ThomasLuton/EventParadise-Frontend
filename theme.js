@@ -1,5 +1,5 @@
 async function get() {
-    const url = "http://localhost:8080/theme";
+    const url = "http://localhost:8080/themes";
     const method = "GET";
     const options = {
         method: method

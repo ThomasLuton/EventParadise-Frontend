@@ -1,5 +1,5 @@
 async function get() {
-    const url = "http://localhost:8080/location";
+    const url = "http://localhost:8080/locations";
     const method = "GET";
     const options = {
         method: method

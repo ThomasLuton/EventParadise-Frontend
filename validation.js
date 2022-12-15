@@ -6,9 +6,9 @@ const options = {
     title: "default"
 };
 
-form.addEventListener('submit', event => {
+form.addEventListener('submit', async event => {
     event.preventDefault();
-    const url = "http://localhost:8080/event";
+    const url = "http://localhost:8080/events";
     const method = "POST";
     const data = {
         name: "",
@@ -23,15 +23,11 @@ form.addEventListener('submit', event => {
         const element = document.getElementById(`${property}`);
         data[property] = element.value;
     });
-    send(url, method, data);
-    toast.show();
-    form.reset();
-    const elements = form.querySelectorAll(".text-success");
-    for (let i = 0; i < elements.length; i++) {
-        const element = form[i];
-        const helpText = getHelpText(element);
-        element.classList.remove("is-valid");
-        helpText.classList.remove("text-success");
+    const response = await send(url, method, data);
+    if (response == undefined) {
+        reset();
+    } else {
+        form.checkValidity();
     }
 });
 
@@ -41,7 +37,7 @@ for (let i = 0; i < form.length - 1; i++) {
     const helpText = getHelpText(element);
     element.addEventListener('invalid', event => {
         event.preventDefault();
-        tooltip = bootstrap.Tooltip.getOrCreateInstance(form[i], options);
+        tooltip = bootstrap.Tooltip.getOrCreateInstance(element, options);
         const first = form.querySelector(":invalid");
         if (element == first) {
             element.focus();
@@ -51,7 +47,7 @@ for (let i = 0; i < form.length - 1; i++) {
     });
     element.addEventListener('change', event => {
         event.preventDefault();
-        tooltip = bootstrap.Tooltip.getOrCreateInstance(form[i], options);
+        tooltip = bootstrap.Tooltip.getOrCreateInstance(element, options);
         if (!element.validity.valid) {
             changeTooltip(tooltip, event);
             setInvalidity(element, helpText, tooltip);
@@ -98,6 +94,18 @@ function setInvalidity(element, helpText, tooltip) {
     tooltip.enable();
 }
 
+function reset() {
+    toast.show();
+    form.reset();
+    const elements = form.querySelectorAll(".text-success");
+    for (let i = 0; i < elements.length; i++) {
+        const element = form[i];
+        const helpText = getHelpText(element);
+        element.classList.remove("is-valid");
+        helpText.classList.remove("text-success");
+    }
+}
+
 async function send(url, method, data) {
     const options = {
         method: method
@@ -110,7 +118,7 @@ async function send(url, method, data) {
     }
     const response = await fetch(url, options);
     if (response.status == 400) {
-        console.log(response.response)
+        return await response.json();
     }
 
 }

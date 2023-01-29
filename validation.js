@@ -10,21 +10,10 @@ form.addEventListener('submit', async event => {
     event.preventDefault();
     const url = "http://localhost:8080/events";
     const method = "POST";
-    const data = {
-        name: "",
-        date: "",
-        locationId: "",
-        themeId: "",
-        rate: "",
-        description: ""
-    }
-    const properties = Object.keys(data);
-    properties.forEach(property => {
-        const element = document.getElementById(`${property}`);
-        data[property] = element.value;
-    });
+    const formData = new FormData(event.target);
+    const data = JSON.stringify(Object.fromEntries(formData));
     const response = await send(url, method, data);
-    if (response == undefined) {
+    if (!response) {
         reset();
     } else {
         form.checkValidity();
@@ -111,7 +100,7 @@ async function send(url, method, data) {
         method: method
     };
     if (data != null) {
-        options.body = JSON.stringify(data);
+        options.body = data;
         options.headers = {
             'Content-Type': 'application/json'
         }
